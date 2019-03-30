@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -24,13 +25,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
   File _image;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       _image = image;
+    });
+    List<int> imageBytes = _image.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+    print(base64Image.length);
+    http.post(url, body:{"img": base64Image}).then((response) {
+    print("Response status: ${response.statusCode}");
+    print("Response body: ${response.body}");
     });
   }
   
