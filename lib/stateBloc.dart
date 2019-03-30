@@ -15,13 +15,22 @@ class StateBloc {
 int setPage(int pageNum){
   return pageNum;
 }
-// Random Colour generator
-// Color getRandomColor() {
-//   Random _random = Random();
-//   return Color.fromARGB(
-//     _random.nextInt(256),
-//     _random.nextInt(256),
-//     _random.nextInt(256),
-//     _random.nextInt(256),
-//   );
-// }
+class FormBloc {
+  final Map<String, String> formData = new Map<String, String>();
+  FormBloc(){
+    formData.putIfAbsent('Type of Food', ()=> "");
+    formData.putIfAbsent('Description', ()=> "");
+    formData.putIfAbsent('Location', ()=> "0,0");
+  }
+
+  StreamController streamListController = StreamController<Map<String, String>>.broadcast();
+
+  Sink get dataSink => streamListController.sink;
+
+  Stream<Map<String, String>> get formStream => streamListController.stream;
+
+  changeForm(String key, String value){
+    formData[key] = value;
+    print(formData);
+  }
+}

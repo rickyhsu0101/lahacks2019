@@ -9,23 +9,21 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final _widgetOptions = [
-    Text('Index 0: Home'),
-    Text('Index 1: Business'),
-    Text('Index 2: School'),
+    Text('Map'),
+    Text('Post'),
   ];
   
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('Business')),
-          //BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('School')),
+          BottomNavigationBarItem(icon: Icon(Icons.map), title: _widgetOptions[0]),
+          BottomNavigationBarItem(icon: Icon(Icons.add_circle), title: _widgetOptions[1]),
         ],
         currentIndex: _selectedIndex,
-        fixedColor: Colors.deepPurple,
+        fixedColor: Color(0xff64dd17),
         onTap: _onItemTapped,
       );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'navigation.dart';
 import 'map.dart';
+import 'postFood.dart';
 import 'stateBloc.dart';
 void main() => runApp(MyApp());
 
@@ -13,20 +14,37 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-StateBloc stateBloc = new StateBloc();
+
+
 class _MyAppState extends State<MyApp> {
-  final List<Widget> pages = [
-    new Map(),
-    new Text("data"),
-  ];
+
+  FormBloc formBloc = new FormBloc();
+  final List<Widget> pages = new List<Widget>();
   int pageNum = 0;
+  StateBloc stateBloc = new StateBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    pages.add(new Map());
+    pages.add(new PostFood(formBloc: formBloc));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Food Locator'),
-          backgroundColor: Color(0xff64dd17),
+          brightness: Brightness.light,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.local_pizza)
+              );
+            },
+          ),
+          title: Text('Food Locator', style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
+          backgroundColor: Color(0xfff5f5f5),
         ),
         body: StreamBuilder(
                 initialData: 0,
