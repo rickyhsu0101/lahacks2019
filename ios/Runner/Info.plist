@@ -43,5 +43,9 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need access to photo library to post images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need access to camera to take photos.</string>
 </dict>
 </plist>
