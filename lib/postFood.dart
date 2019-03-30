@@ -18,16 +18,16 @@ class _PostFoodState extends State<PostFood>{
   @override
   Widget build(BuildContext context) {
     return new ListView(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(30.0),
       children: <Widget>[new Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 10.0), //camera icon
             IconButton(
               icon: Icon(Icons.camera_enhance),
               iconSize: 150.0,
               tooltip: 'Take picture',
+              color: Color(0xff737373),
               onPressed: (){
                 setState(() {
                   //photo handling
@@ -39,7 +39,7 @@ class _PostFoodState extends State<PostFood>{
               decoration: new InputDecoration(
                 labelText: "Type of Food",
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 40.0, color: Colors.blue),
+                  borderSide: BorderSide(width: 40.0),
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.0),
                   ),
@@ -53,9 +53,9 @@ class _PostFoodState extends State<PostFood>{
             TextFormField(
               decoration: new InputDecoration(
                 labelText: "Description",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 40.0, color: Colors.blue),
-                  borderRadius: BorderRadius.all(
+                border: const OutlineInputBorder(
+                  borderSide: const BorderSide(width: 40.0),
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
@@ -68,9 +68,9 @@ class _PostFoodState extends State<PostFood>{
             TextFormField(
               decoration: new InputDecoration(
                 labelText: "Location",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 40.0, color: Colors.blue),
-                  borderRadius: BorderRadius.all(
+                border: const OutlineInputBorder(
+                  borderSide: const BorderSide(width: 40.0),
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
                   ),
                 ),
@@ -80,9 +80,15 @@ class _PostFoodState extends State<PostFood>{
               }
             ),
             const SizedBox(height: 20.0),
-            RaisedButton(
-              onPressed: submit,
-              child: const Text('Submit!'),
+            ButtonTheme(
+              minWidth: 20.0,
+              height: 20.0,
+              child: RaisedButton(
+                child: const Text('Submit!'),
+                color: const Color(0xff64dd17),
+                onPressed: submit,
+                textColor: Colors.white,
+              ),
             ),
           ]
         )

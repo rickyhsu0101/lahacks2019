@@ -33,13 +33,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: new ThemeData(
+      primaryColor: Color(0xff64dd17),
+      ),
       home: Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Icon(Icons.local_pizza)
+                icon: Icon(Icons.local_pizza),
+                disabledColor: Color(0xff737373),
+                onPressed: null
               );
             },
           ),
