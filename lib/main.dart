@@ -6,25 +6,43 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() => runApp(MyApp());
+void main(){
+  runApp(MaterialApp(
+    title: 'Navigation',
+    home: FirstRoute(),
+  ));
+}
 
-class MyApp extends StatelessWidget {
+class FirstRoute extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      title: 'Title',
-      theme: new ThemeData.light(),
-      home: new MyHomePage(),
+    return Scaffold(
+      body: Center(
+        child: RaisedButton(
+          child: TextField(
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your username'
+            ),
+            onSubmitted: (text){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondRoute()),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
-}
+} 
 
-class MyHomePage extends StatefulWidget {
+class SecondRoute extends StatefulWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _SecondRoute createState() => _SecondRoute();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SecondRoute extends State<SecondRoute> {
   var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
   File _image;
 
