@@ -26,8 +26,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    pages.add(new Map());
-    pages.add(new PostFood(formBloc: formBloc));
+    pages.add(new MapView());
+    pages.add(new PostFood(formBloc: formBloc, stateBloc: stateBloc,));
   }
 
   @override

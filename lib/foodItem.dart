@@ -1,0 +1,89 @@
+
+import 'package:flutter/material.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:location/location.dart';
+import 'dart:math';
+import 'package:latlong/latlong.dart';
+class FoodItem extends StatefulWidget {
+  final double lat;
+  final double long;
+  FoodItem({Key key, @required this.lat, @required this.long}) : super(key: key);
+  @override
+  _FoodItemState createState() => new _FoodItemState();
+}
+class _FoodItemState extends State<FoodItem>{
+  Uint8List _bytes = null;
+  String _description = "";
+  String _type = "";
+  String _donor = "";
+  String _acceptor = "";
+  double _distance= -1.0; 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    http.get("https://safe-forest-54595.herokuapp.com/api/food/${widget.lat}/${widget.long}")
+      .then((response){
+        Map<String, dynamic> map = jsonDecode(response.body);
+        List list = map['food'];
+        Map<String, dynamic> firstElement = list[0];
+        Location location = new Location();
+        location.getLocation().then((data){
+          Distance distance = new Distance();
+            double miles = distance.as(LengthUnit.Mile,  new LatLng(data.latitude, data.longitude),new LatLng(widget.lat, widget.long));
+            setState(() {
+              _bytes = base64Decode(firstElement['image']);
+              _description = firstElement['description'];
+              _type = firstElement['type'];
+              _donor = firstElement['donor'];
+              _acceptor = firstElement['acceptor'];
+              _distance = miles;
+            });
+        });
+        
+      });
+    
+  }
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+          brightness: Brightness.light,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.local_pizza),
+                disabledColor: Color(0xff737373),
+                onPressed: null
+              );
+            },
+          ),
+          title: Text('Food Locator', style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
+          backgroundColor: Color(0xfff5f5f5),
+        ),
+      body: new ListView(
+        padding: EdgeInsets.all(30.0),
+        children: <Widget>[
+          _bytes == null? SizedBox() : new Image.memory(_bytes),
+          Text(_type, style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
+          Text(_description, style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,)),
+          Text("Donor: $_donor", style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,)),
+          Text("Acceptor: $_acceptor", style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,)),
+          Text("$_distance miles", style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,)),
+          new RaisedButton(
+            child: Text("Notify Donor"),
+            onPressed: (){
+              //run api
+              Navigator.pop(context);
+
+            },
+          )
+        ]
+      )
+    );
+  }
+}

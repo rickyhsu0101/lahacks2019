@@ -47,5 +47,9 @@
 	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need access to photo library to post images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need access to camera to take photos.</string>
 </dict>
 </plist>

@@ -14,7 +14,16 @@ class _NavigationState extends State<Navigation> {
     Text('Map'),
     Text('Post'),
   ];
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.stateBloc.pageStream.listen((onData){
+      setState(() {
+        _selectedIndex = onData;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -30,8 +39,7 @@ class _NavigationState extends State<Navigation> {
 
   void _onItemTapped(int index) {
     widget.stateBloc.changePage(index);
-    setState(() {
-      _selectedIndex = index;
-    });
+    
+    
   }
 }
