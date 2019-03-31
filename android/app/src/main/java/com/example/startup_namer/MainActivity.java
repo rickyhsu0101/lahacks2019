@@ -1,4 +1,4 @@
-package com.example.lahacks2019;
+package com.example.startup_namer;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

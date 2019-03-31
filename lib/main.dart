@@ -18,25 +18,40 @@ class FirstRoute extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          child: TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Enter your username'
-            ),
+        child: Container(
+          alignment: AlignmentDirectional(0.0, 0.0),
+          margin: new EdgeInsets.all(20.0),
+          decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("background.jpg"),
+            fit: BoxFit.cover,
+          )
+        ),
+        child: TextField(
+            decoration: new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                //labelText: "Enter Username",
+                hintText: 'Enter Username',
+                border: const OutlineInputBorder(
+                  borderSide: const BorderSide(width: 40.0),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+              ),
             onSubmitted: (text){
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SecondRoute()),
               );
             },
-          ),
-        ),
-      ),
+          )
+      )
+      )
     );
   }
-} 
-
+}
 class SecondRoute extends StatefulWidget {
   @override
   _SecondRoute createState() => _SecondRoute();
@@ -59,7 +74,7 @@ class _SecondRoute extends State<SecondRoute> {
     print("Response body: ${response.body}");
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
