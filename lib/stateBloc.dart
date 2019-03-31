@@ -1,5 +1,33 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
+class LoginBloc{
+  StreamController streamListController = StreamController<bool>.broadcast();
+// sink
+  Sink get dataSink => streamListController.sink;
+// stream
+  Stream<BidirectionalIterator> get pageStream => streamListController.stream;
+  bool setStatus(bool status){
+    return status;
+  }
+// function to change the color
+  changeLoginStatus(bool status) {
+    dataSink.add(setStatus(status));
+  }
+}
+class RecenterBloc{
+  StreamController streamListController = StreamController<String>.broadcast();
+// sink
+  Sink get dataSink => streamListController.sink;
+// stream
+  Stream<String> get centerStream => streamListController.stream;
+  String setCenter(String center){
+    return center;
+  }
+// function to change the color
+  changeCenter(String center) {
+    dataSink.add(setCenter(center));
+  }
+}
 class StateBloc {
 // streams of Color
   StreamController streamListController = StreamController<int>.broadcast();

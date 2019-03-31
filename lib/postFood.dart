@@ -11,7 +11,9 @@ import 'package:location/location.dart';
 class PostFood extends StatefulWidget{
   final FormBloc formBloc;
   final StateBloc stateBloc;
-  PostFood({Key key, @required this.formBloc, @required this.stateBloc}) : super(key: key);
+  String user;
+  String phone;
+  PostFood({Key key, @required this.formBloc, @required this.stateBloc, @required this.user, @required this.phone}) : super(key: key);
   @override
   _PostFoodState createState() => _PostFoodState();
 }
@@ -30,7 +32,9 @@ class _PostFoodState extends State<PostFood>{
         'type': typeController.text,
         'description': descriptionController.text,
         'locationLat': locationController.text.split(',')[0],
-        'locationLong': locationController.text.split(',')[1]
+        'locationLong': locationController.text.split(',')[1],
+        'donor': widget.user,
+        'phone': widget.phone
       })
       .then((response){
         print("${response.body}");
@@ -43,7 +47,7 @@ var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
   //List<Widget> widgetList;
   String base64Image;
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 500, maxWidth: 500);
     setState(() {
       _image = image;
     });
@@ -62,6 +66,7 @@ var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
   void initState() {
     // TODO: implement initState
     super.initState();
+    locationController.text = "${34.0666224},${-118.4469441}";
     location.getLocation().then((LocationData currentLocation){
       widget.formBloc.changeForm("Location", "${currentLocation.latitude},${currentLocation.longitude}");
       locationController.text = "${currentLocation.latitude},${currentLocation.longitude}";
@@ -144,9 +149,9 @@ var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
               },
               controller: locationController,
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 40.0),
             ButtonTheme(
-              minWidth: 80.0,
+              minWidth: 300.0,
               height: 40.0,
               child: RaisedButton(
                 child: const Text('Submit!'),

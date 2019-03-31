@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
+import 'package:camera/camera.dart';
 
 
 class ImagePicking extends StatefulWidget {
@@ -35,7 +35,7 @@ class _ImagePickingState extends State<ImagePicking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Picker Example'),
+        title: Text('Image Picking'),
       ),
       body: Center(
         child: _image == null

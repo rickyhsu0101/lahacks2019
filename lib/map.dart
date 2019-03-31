@@ -7,7 +7,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'foodItem.dart';
 
+import 'stateBloc.dart';
+
 class MapView extends StatefulWidget{
+   final String currentUser;
+   final RecenterBloc rBloc;
+
+   MapView({Key key, @required this.currentUser, @required this.rBloc}) : super(key: key);
   @override
   _MapState createState() => _MapState();
 }
@@ -22,7 +28,7 @@ class _MapState extends State<MapView>{
     // TODO: implement initState
     super.initState();
     
-
+    
   }
   void _onMapCreated(GoogleMapController controller){
     _controller.complete(controller);
@@ -33,9 +39,9 @@ class _MapState extends State<MapView>{
       .then((response){
         print("${response.body}");
         var map = jsonDecode(response.body);
-        var list = map['food'];
+        var list = map['food']; 
         print("${list.length}");
-
+          if(this.mounted){
           setState((){
               
              for(int i = 0; i < list.length; i++){
@@ -49,37 +55,38 @@ class _MapState extends State<MapView>{
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FoodItem(lat: list[i]['locationLat'], long: list[i]['locationLong'])),
+                        MaterialPageRoute(builder: (context) => FoodItem(lat: list[i]['locationLat'], long: list[i]['locationLong'], currentUser: widget.currentUser,)),
                       );
                     }
                   );
-                setState((){
+                
                   markers[mI] = m;
-                });
+               
               }
            
           });
+          }
          
         
         
         print("${markers.length}");
 
       });
-    /*
-    location.getLocation().then((LocationData currentLocation){
-      _controller.future.then((GoogleMapController controller){
-        controller.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(currentLocation.latitude, currentLocation.longitude),
-              zoom: 16.0
+    
+      location.getLocation().then((LocationData currentLocation){
+        _controller.future.then((GoogleMapController controller){
+          controller.animateCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target: LatLng(currentLocation.latitude, currentLocation.longitude),
+                zoom: 16.0
+              ),
             ),
-          ),
-        );
+          );
+        });
       });
-    });*/
 
-    /*
+    
     location.onLocationChanged().listen((LocationData currentLocation) {
       _controller.future.then((GoogleMapController controller){
         controller.animateCamera(
@@ -92,7 +99,7 @@ class _MapState extends State<MapView>{
         );
       });
     });
-    */
+    
   }
 
   @override

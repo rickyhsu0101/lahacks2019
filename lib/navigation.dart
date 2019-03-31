@@ -13,6 +13,7 @@ class _NavigationState extends State<Navigation> {
   final _widgetOptions = [
     Text('Map'),
     Text('Post'),
+    Text('Listing')
   ];
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _NavigationState extends State<Navigation> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.map), title: _widgetOptions[0]),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle), title: _widgetOptions[1]),
+          BottomNavigationBarItem(icon: Icon(Icons.list), title: _widgetOptions[2])
         ],
         currentIndex: _selectedIndex,
         fixedColor: Color(0xff64dd17),
