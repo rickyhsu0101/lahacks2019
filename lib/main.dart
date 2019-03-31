@@ -59,32 +59,37 @@ class SecondRoute extends StatefulWidget {
 
 class _SecondRoute extends State<SecondRoute> {
   var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
-  File _image;
+  List<File> _images = new List<File>(100);
+  int i = 0;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _image = image;
+      _images[i] = image;
     });
-    List<int> imageBytes = _image.readAsBytesSync();
+
+    List<int> imageBytes = _images[i].readAsBytesSync();
     String base64Image = base64Encode(imageBytes);
     print(base64Image.length);
     http.post(url, body:{"img": base64Image}).then((response) {
     print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
     });
+    i++;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Picker Example'),
-      ),
-      body: Center(
-        child: _image == null
-            ? Text('No image selected.')
-            : Image.file(_image),
+      body: new ListView.builder(
+        reverse: true,
+        itemCount: _images == null 
+                     ? 0 : _images.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          if (_images[index] != null){
+            return Image.file(_images[index]);
+          }
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
