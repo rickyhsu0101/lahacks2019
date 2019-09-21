@@ -33,7 +33,8 @@ class _LoginState extends State<Login>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        appBar: AppBar(brightness: Brightness.light,
+ /*        appBar: AppBar(
+          brightness: Brightness.light,
           /*leading: Builder(
             builder: (BuildContext context) {
         /*  return IconButton(
@@ -45,7 +46,7 @@ class _LoginState extends State<Login>{
           ),*/
           title: Text('Feed Me', style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
           backgroundColor: Color(0xfff5f5f5),
-        ),
+        ), */ //AppBar
         body: Center(
           child: new Stack(
             children: <Widget>[

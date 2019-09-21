@@ -47,7 +47,7 @@ var url = "https://safe-forest-54595.herokuapp.com/api/sendImage";
   //List<Widget> widgetList;
   String base64Image;
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 500, maxWidth: 500);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, maxHeight: 500, maxWidth: 500);
     setState(() {
       _image = image;
     });

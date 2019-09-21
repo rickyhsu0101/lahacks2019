@@ -54,7 +54,7 @@ class _FoodItemState extends State<FoodItem>{
     return Scaffold(
       appBar: AppBar(
           brightness: Brightness.light,
-          leading: Builder(
+          /*leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
                 icon: Icon(Icons.local_pizza),
@@ -62,8 +62,8 @@ class _FoodItemState extends State<FoodItem>{
                 onPressed: null
               );
             },
-          ),
-          title: Text('Food Locator', style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
+          ),*/
+          title: Text('Feed Me', style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold, color: Color(0xff64dd17))),
           backgroundColor: Color(0xfff5f5f5),
         ),
       body: _acceptor == "" ? Center(child: new CircularProgressIndicator()):new ListView(
